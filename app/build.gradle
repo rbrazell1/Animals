@@ -1,5 +1,18 @@
 apply plugin: 'com.android.application'
 
+
+static def getProperty(String propertyFile, String propertyName) {
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(propertyFile))
+                return properties.getProperty(propertyName)
+
+}
+
+static def quoted(String value) {
+    return "\"$value\""
+
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -12,6 +25,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'BASE_URL', quoted(getProperty("$projectDir/../../../services/animals.properties", 'base_url'))
+        buildConfigField 'String', 'API_KEY', quoted(getProperty("$projectDir/../../../services/animals.properties", 'api_key'))
+
     }
 
     buildTypes {
