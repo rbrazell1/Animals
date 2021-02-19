@@ -1,8 +1,8 @@
 package edu.cnm.deepdive.animals;
 
+import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import edu.cnm.deepdive.animals.model.Animal;
 import edu.cnm.deepdive.animals.service.WebServiceProxy;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
           Log.e(getClass().getName(), response.message());
         }
       } catch (IOException e) {
-       Log.e(getClass().getName(), e.getMessage(), e);
+        Log.e(getClass().getName(), e.getMessage(), e);
       }
 
     }
