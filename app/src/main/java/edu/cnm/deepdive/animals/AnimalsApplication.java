@@ -10,9 +10,9 @@ public class AnimalsApplication extends Application {
     super.onCreate();
     Picasso.setSingletonInstance(
         new Picasso.Builder(this)
-        .loggingEnabled(BuildConfig.DEBUG)
-        .build()
+            .loggingEnabled(BuildConfig.DEBUG)
+            .build()
     );
-    }
   }
+}
 

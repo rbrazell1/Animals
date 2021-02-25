@@ -4,12 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.animals.BuildConfig;
 import edu.cnm.deepdive.animals.model.Animal;
+import io.reactivex.Single;
 import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
-import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -19,7 +20,7 @@ public interface WebServiceProxy {
 
   @POST("getAnimals")
   @FormUrlEncoded
-  Call<List<Animal>> getAnimals(@Field("key") String key);
+  Single<List<Animal>> getAnimals(@Field("key") String key);
 
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
@@ -41,6 +42,7 @@ public interface WebServiceProxy {
       Retrofit retrofit = new Retrofit.Builder()
           .baseUrl(BuildConfig.BASE_URL)
           .addConverterFactory(GsonConverterFactory.create(gson))
+          .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .client(clint)
           .build();
       INSTANCE = retrofit.create(WebServiceProxy.class);

@@ -4,21 +4,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.animals.BuildConfig;
 import edu.cnm.deepdive.animals.R;
 import edu.cnm.deepdive.animals.model.Animal;
 import edu.cnm.deepdive.animals.service.WebServiceProxy;
+import edu.cnm.deepdive.animals.viewmodel.MainViewModel;
 import java.io.IOException;
 import java.util.List;
 import retrofit2.Response;
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
-    new RetrieverTask().execute();
+    MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
   }
 
   private class RetrieverTask extends AsyncTask<Void, Void, List<Animal>> {
